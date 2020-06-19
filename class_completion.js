@@ -82,8 +82,6 @@ if (endDate - allMonths[month] > 1) {
 //   console.log(completion);
 // }
 
-// Can i write a function for d in numDays, date: month/d/year, d++
-// if
 const data = [
   {
     date: `${month}/${date}/${year}`,
@@ -91,7 +89,23 @@ const data = [
   },
 ];
 
+// Can i write a function for d in numDays, date: month/d/year, d++
+// if
+
+function setDates(startDate, classLength) {
+  for (let d = startDate; d <= startDate + classLength; d++) {
+    if (d <= allMonths[month]) {
+      data.push({ date: `${month}/${d}/${year}` });
+    } else {
+      data.push({ date: `${month + 1}/${d % allMonths[month]}/${year}` });
+    }
+  }
+  console.log(data);
+}
+
+setDates(date, numDays);
+
 // write the data to the csv file
-csvWriter
-  .writeRecords(data)
-  .then(() => console.log("File successfully created!"));
+// csvWriter
+//   .writeRecords(data)
+//   .then(() => console.log("File successfully created!"));
