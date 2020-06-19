@@ -47,7 +47,7 @@ const completionType = prompt(
 console.log(`The expected end of course is ${numWeeks} weeks from now`);
 
 const numDays = numWeeks * 5;
-// need endDate t0 be date + numDays and if that is greater than allMonths[month]
+// need endDate to be date + numDays and if that is greater than allMonths[month]
 // then it needs to subtract allMonths[month] else, it just the addition
 let endDate = date + numDays;
 if (endDate > allMonths[month]) {
@@ -75,17 +75,20 @@ if (endDate - allMonths[month] > 1) {
 // date between start and expected completion in the date column
 // `${completionMonth}/${completionDate}/${year}`
 
+// do I need to use a promise or await/async here???
 // let completion = "";
 // if (completionType === "p") {
 //   let completion = Math.round(100 / numDays);
 //   console.log(completion);
 // }
 
+// Can i write a function for d in numDays, date: month/d/year, d++
+// if
 const data = [
   {
     date: `${month}/${date}/${year}`,
+    expectedCompletion: Math.round(100 / numDays) + "%",
   },
-  { expectedCompletion: Math.round(100 / numDays) + "%" },
 ];
 
 // write the data to the csv file
