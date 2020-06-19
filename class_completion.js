@@ -82,30 +82,44 @@ if (endDate - allMonths[month] > 1) {
 //   console.log(completion);
 // }
 
-const data = [
-  {
-    date: `${month}/${date}/${year}`,
-    expectedCompletion: Math.round(100 / numDays) + "%",
-  },
-];
+// {
+//     date: `${month}/${date}/${year}`,
+//     expectedCompletion: Math.round(100 / numDays) + "%",
+//   },
+
+const data = [];
 
 // Can i write a function for d in numDays, date: month/d/year, d++
 // if
 
 function setDates(startDate, classLength) {
-  for (let d = startDate; d <= startDate + classLength; d++) {
+  let i = 1;
+  for (let d = startDate; d < startDate + classLength; d++) {
     if (d <= allMonths[month]) {
-      data.push({ date: `${month}/${d}/${year}` });
+      data.push({
+        date: `${month}/${d}/${year}`,
+        expectedCompletion: Math.round((100 / numDays) * i) + "%",
+      });
     } else {
-      data.push({ date: `${month + 1}/${d % allMonths[month]}/${year}` });
+      data.push({
+        date: `${month + 1}/${d % allMonths[month]}/${year}`,
+        expectedCompletion: Math.round((100 / numDays) * i) + "%",
+      });
     }
+    i++;
   }
-  console.log(data);
 }
 
+// function setCompletion(classLength) {
+//   for (let i = 1; i <= classLength; i++) {
+//     data.splice(i, 0, { expectedCompletion: (100 / numDays) * i + "%" });
+//   }
+// }
+
 setDates(date, numDays);
+//setCompletion(numDays, setDates(date, numDays));
 
 // write the data to the csv file
-// csvWriter
-//   .writeRecords(data)
-//   .then(() => console.log("File successfully created!"));
+csvWriter
+  .writeRecords(data)
+  .then(() => console.log("File successfully created!"));
