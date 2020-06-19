@@ -1,3 +1,5 @@
+// I added this on the lesson-param branch
+
 const prompt = require("prompt-sync")();
 const csv = require("csv-parser");
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
@@ -82,17 +84,9 @@ if (endDate - allMonths[month] > 1) {
 //   console.log(completion);
 // }
 
-// {
-//     date: `${month}/${date}/${year}`,
-//     expectedCompletion: Math.round(100 / numDays) + "%",
-//   },
-
 const data = [];
 
-// Can i write a function for d in numDays, date: month/d/year, d++
-// if
-
-function setDates(startDate, classLength) {
+function setDatesPercent(startDate, classLength) {
   let i = 1;
   for (let d = startDate; d < startDate + classLength; d++) {
     if (d <= allMonths[month]) {
@@ -110,14 +104,32 @@ function setDates(startDate, classLength) {
   }
 }
 
-// function setCompletion(classLength) {
-//   for (let i = 1; i <= classLength; i++) {
-//     data.splice(i, 0, { expectedCompletion: (100 / numDays) * i + "%" });
-//   }
-// }
+// always 20 lessons
+const numLessons = 20;
 
-setDates(date, numDays);
-//setCompletion(numDays, setDates(date, numDays));
+function setDatesLessons(startDate, classLength) {
+  let i = Math.round(numLessons / numDays);
+  for (let d = startDate; d < startDate + classLength; d++) {
+    if (d <= allMonths[month]) {
+      data.push({
+        date: `${month}/${d}/${year}`,
+        expectedCompletion: Math.round(i) + " lessons",
+      });
+    } else {
+      data.push({
+        date: `${month + 1}/${d % allMonths[month]}/${year}`,
+        expectedCompletion: Math.round(i) + " lessons",
+      });
+    }
+    i += numLessons / numDays;
+  }
+}
+
+if (completionType === "p") {
+  setDatesPercent(date, numDays);
+} else {
+  setDatesLessons(date, numDays);
+}
 
 // write the data to the csv file
 csvWriter

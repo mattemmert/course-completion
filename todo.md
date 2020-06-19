@@ -6,6 +6,8 @@ The completion column should say 'lesson 5' or '5% completed'
 
 Enter student name, enter course identifier (name or course #), enter # of weeks to finish, enter lesson or %. Output csv file as studentName.csv, (can i edit worksheet title?) with column for date and column for completion (lesson or % expected as corresponding to the date, as calculated by end date \* 5 school days/week).
 
+\*\*6/19/20 - it works! You can enter student name, percentage, number of weeks, and it will output a csv where dates and percentages correctly line up!
+
 To Do:
 allow user to set start date
 allow user to set lessons or course percentage
