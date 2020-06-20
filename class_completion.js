@@ -51,10 +51,10 @@ const daysOfWeek = {
 let month = dateObj.getMonth() + 1;
 let date = dateObj.getDate();
 let year = dateObj.getFullYear();
+
 console.log(`The course start date is ${month}/${date}/${year}`);
 
 let day = prompt("Please enter the current weekday (m, tu, w, th, f): ");
-
 const numWeeks = prompt("Please enter target number of weeks: ");
 
 const completionType = prompt(
