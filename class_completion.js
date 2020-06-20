@@ -36,19 +36,35 @@ const allMonths = {
   12: 31,
 };
 
+// set variable for days of week to skip weekend dates on csv file
+const daysOfWeek = {
+  m: 0,
+  tu: 1,
+  w: 2,
+  th: 3,
+  f: 4,
+  sa: 5,
+  su: 6,
+};
+
 // define month, date, year and produce in m/d/yyyy format
 let month = dateObj.getMonth() + 1;
 let date = dateObj.getDate();
 let year = dateObj.getFullYear();
 console.log(`The course start date is ${month}/${date}/${year}`);
 
+let day = prompt("Please enter the current weekday (m, tu, w, th, f): ");
+
 const numWeeks = prompt("Please enter target number of weeks: ");
+
 const completionType = prompt(
   "Enter 'l' to display completion as lesson or 'p' to display as percentage: "
 );
 console.log(`The expected end of course is ${numWeeks} weeks from now`);
 
-const numDays = numWeeks * 5;
+// numDays will let us set dates correctly and daystoComplete to set lesson progress
+let numDays = numWeeks * 7;
+let daysToComplete = numWeeks * 5;
 // need endDate to be date + numDays and if that is greater than allMonths[month]
 // then it needs to subtract allMonths[month] else, it just the addition
 let endDate = date + numDays;
@@ -73,58 +89,64 @@ if (endDate - allMonths[month] > 1) {
   console.log(`The expected end date is ${month}/${endDate}/${year}`);
 }
 
-// completionMonth and completionDate are the ending values. I need to display every
-// date between start and expected completion in the date column
-// `${completionMonth}/${completionDate}/${year}`
-
-// do I need to use a promise or await/async here???
-// let completion = "";
-// if (completionType === "p") {
-//   let completion = Math.round(100 / numDays);
-//   console.log(completion);
-// }
-
+// store the data that will be written to the csv file
 const data = [];
 
+let x = daysOfWeek[day];
+
+// Used one function to generate dates and completion as they belong to one object
 function setDatesPercent(startDate, classLength) {
   let i = 1;
   for (let d = startDate; d < startDate + classLength; d++) {
-    if (d <= allMonths[month]) {
-      data.push({
-        date: `${month}/${d}/${year}`,
-        expectedCompletion: Math.round((100 / numDays) * i) + "%",
-      });
+    if (x % 7 === 5 || x % 7 === 6) {
+      data.push({ date: "", expectedCompletion: "" });
+      i--;
     } else {
-      data.push({
-        date: `${month + 1}/${d % allMonths[month]}/${year}`,
-        expectedCompletion: Math.round((100 / numDays) * i) + "%",
-      });
+      if (d <= allMonths[month]) {
+        data.push({
+          date: `${month}/${d}/${year}`,
+          expectedCompletion: Math.round((100 / daysToComplete) * i) + "%",
+        });
+      } else {
+        data.push({
+          date: `${month + 1}/${d % allMonths[month]}/${year}`,
+          expectedCompletion: Math.round((100 / daysToComplete) * i) + "%",
+        });
+      }
     }
     i++;
+    x++;
   }
 }
 
 // always 20 lessons
 const numLessons = 20;
 
+// right now i don't think it tells it to not print
 function setDatesLessons(startDate, classLength) {
-  let i = Math.round(numLessons / numDays);
+  let i = Math.round(numLessons / daysToComplete);
   for (let d = startDate; d < startDate + classLength; d++) {
-    if (d <= allMonths[month]) {
-      data.push({
-        date: `${month}/${d}/${year}`,
-        expectedCompletion: Math.round(i) + " lessons",
-      });
+    if (x % 7 === 5 || x % 7 === 6) {
+      data.push({ date: "", expectedCompletion: "" });
     } else {
-      data.push({
-        date: `${month + 1}/${d % allMonths[month]}/${year}`,
-        expectedCompletion: Math.round(i) + " lessons",
-      });
+      if (d <= allMonths[month]) {
+        data.push({
+          date: `${month}/${d}/${year}`,
+          expectedCompletion: Math.round(i) + " lessons",
+        });
+      } else {
+        data.push({
+          date: `${month + 1}/${d % allMonths[month]}/${year}`,
+          expectedCompletion: Math.round(i) + " lessons",
+        });
+      }
+      i += numLessons / daysToComplete;
     }
-    i += numLessons / numDays;
+    x++;
   }
 }
 
+// run the function corresponding to lessons or percentage
 if (completionType === "p") {
   setDatesPercent(date, numDays);
 } else {

@@ -10,7 +10,11 @@ Enter student name, enter course identifier (name or course #), enter # of weeks
 
 To Do:
 allow user to set start date
-allow user to set lessons or course percentage
+
+~allow user to set lessons or course percentage~
+
 allow user to set directory where file will output or alternatively, allow for download?
 
-only accept week input as 2, 3, 4 week
+add a variable to track which day of the week the date is and skip ones that correspond to Satuday and Sunday
+
+only accept week input as 2, 3, 4 week -maybe not necessary
