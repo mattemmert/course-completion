@@ -9,7 +9,7 @@ Enter student name, enter course identifier (name or course #), enter # of weeks
 \*\*6/19/20 - it works! You can enter student name, percentage, number of weeks, and it will output a csv where dates and percentages correctly line up!
 
 To Do:
-allow user to set start date
+~allow user to set start date _not necessary_~
 
 ~allow user to set lessons or course percentage~
 
@@ -18,3 +18,9 @@ allow user to set directory where file will output or alternatively, allow for d
 ~add a variable to track which day of the week the date is and skip ones that correspond to Satuday and Sunday~
 
 ~only accept week input as 2, 3, 4 week _not necessary_~
+
+Ideas:
+Remove the date field and just use Date.getDay() to get the integer value of the current weekday
+This will require updating my functions
+
+Change number of weeks to a radio button

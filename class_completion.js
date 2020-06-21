@@ -1,11 +1,9 @@
-// I added this on the lesson-param branch
-
 const prompt = require("prompt-sync")();
 const csv = require("csv-parser");
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 
 // because student name is used as output file name, it's declared here
-const studentName = prompt("Please enter student name: ");
+//const studentName = prompt("Please enter student name: ");
 
 // create csvWriter instance with output file path and column headers
 const csvWriter = createCsvWriter({
@@ -52,15 +50,15 @@ let month = dateObj.getMonth() + 1;
 let date = dateObj.getDate();
 let year = dateObj.getFullYear();
 
-console.log(`The course start date is ${month}/${date}/${year}`);
+//console.log(`The course start date is ${month}/${date}/${year}`);
+// I also could haved used Date.getDay() to get numerical value of day of week
+//let day = prompt("Please enter the current weekday (m, tu, w, th, f): ");
+//const numWeeks = prompt("Please enter target number of weeks: ");
 
-let day = prompt("Please enter the current weekday (m, tu, w, th, f): ");
-const numWeeks = prompt("Please enter target number of weeks: ");
-
-const completionType = prompt(
-  "Enter 'l' to display completion as lesson or 'p' to display as percentage: "
-);
-console.log(`The expected end of course is ${numWeeks} weeks from now`);
+// //const completionType = prompt(
+//   "Enter 'l' to display completion as lesson or 'p' to display as percentage: "
+// );
+//console.log(`The expected end of course is ${numWeeks} weeks from now`);
 
 // numDays will let us set dates correctly and daystoComplete to set lesson progress
 let numDays = numWeeks * 7;
@@ -152,6 +150,11 @@ if (completionType === "p") {
 } else {
   setDatesLessons(date, numDays);
 }
+
+exports.allMonths = allMonths;
+exports.csvWriter = csvWriter;
+exports.daysOfWeek = daysOfWeek;
+exports.numWeeks = numWeeks;
 
 // write the data to the csv file
 csvWriter

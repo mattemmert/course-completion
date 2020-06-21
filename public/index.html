@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Completion CSV Generator</title>
+  </head>
+  <body>
+    <form class="form" action="/" method="POST">
+      <div>
+        <label for="studentName">Enter student name: </label>
+        <input type="text" name="studentName" id="studentName" required />
+      </div>
+      <!-- <div>
+        <label for="startDate">Please enter current weekday:</label>
+        <input type="date" name="startDate" id="startDate" required />
+      </div> -->
+      <div>
+        <label for="numWeeks">Please select number of weeks:</label>
+        <input type="radio" name="numWeeks" id="2" value="2" checked />
+        <label for="numWeeks">2</label>
+        <input type="radio" name="numWeeks" id="3" value="3" />
+        <label for="numWeeks">3</label>
+        <input type="radio" name="numWeeks" id="4" value="4" />
+        <label for="numWeeks">4</label>
+      </div>
+      <div>
+        <label for="completionType"
+          >Display completion as lessons or percentage:</label
+        >
+        <input
+          type="radio"
+          name="completionType"
+          id="completionType-percentage"
+          value="p"
+          checked
+        />
+        <label for="completionType-percentage">Percentage</label>
+        <input
+          type="radio"
+          name="completionType"
+          id="completionType-lessons"
+          value="l"
+        />
+        <label for="completionType-percentage">Lessons</label>
+      </div>
+      <div>
+        <input type="submit" value="Create file!" />
+      </div>
+    </form>
+  </body>
+</html>
